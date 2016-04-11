@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn import svm, cross_validation
 from pprint import pprint
 from datetime import *
@@ -74,15 +74,27 @@ data_content, data_label = load_data()
 
 # print data_content
 
+
+
 print "Initialise feature_extraction function"
+
+#n-gram
+
+ngram_vectorizer = CountVectorizer(analyzer='word', ngram_range=(1,10), min_df=1,max_df = 0.6,stop_words='english'
+								   ,preprocessor=Remove_Digits,max_features = 4000)
+
+counts= ngram_vectorizer.fit_transform(data_content)
+
+pprint (ngram_vectorizer.get_feature_names()[:100])
+
 # Initialise the feature_extraction func
-vectorizer = TfidfVectorizer(min_df=1,max_df = 0.6, stop_words='english',preprocessor=Remove_Digits, max_features = 4000)
+#vectorizer = TfidfVectorizer(min_df=1,max_df = 0.6, stop_words='english',preprocessor=Remove_Digits, max_features = 4000)
 
 
 
 # fit x train data
-data_idf_set = vectorizer.fit_transform(data_content)
-idf = vectorizer._tfidf.idf_
+# data_idf_set = vectorizer.fit_transform(data_content)
+# idf = vectorizer._tfidf.idf_
 
 
 # print("n_samples: %d, n_features: %d" % data_idf_set.shape)
@@ -90,10 +102,10 @@ idf = vectorizer._tfidf.idf_
 
 
 
-pprint (dict(zip(vectorizer.get_feature_names()[:100], idf)))
+#pprint (dict(zip(vectorizer.get_feature_names()[:100], idf)))
 # print vectorizer
 
-a_train, a_test, b_train, b_test = train_test_split(data_idf_set, data_label, test_size=0.33, random_state=42)
+a_train, a_test, b_train, b_test = train_test_split(counts, data_label, test_size=0.33, random_state=42)
 
 # print("n_samples: %d, n_features: %d" % a_test.shape)
 
