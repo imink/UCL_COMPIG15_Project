@@ -15,14 +15,30 @@ import random
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import re
+
 
 # Useing MatLab like graph style
 style.use('ggplot')
 
+#pre process the data
 
-def Remove_Digits(s):
+def removeDigits(s):
 	results = ''.join(i for i in s if not i.isdigit())
 	return results
+
+def pre_process():
+	for temp in data_content:
+		temp=temp.lower()
+		temp = re.sub(r'^&quot;', '', temp, flags=re.MULTILINE)
+		cache=""
+		temp_list = temp.split()
+		for i in temp_list:
+			if i.find("http")==-1 and i.find("www.")==-1 and i.find("#")==-1 and i.find("@")==-1:
+				cache+=i+" "
+		temp = cache
+		cache=""
+		print temp
 
 
 
@@ -40,6 +56,8 @@ def load_data():
 	data_content = list(df.SentimentText)
 
 	return data_content, data_label
+
+
 
 
 
@@ -75,12 +93,14 @@ def Accuracy(predict_label, test_label):
 
 data_content, data_label = load_data()
 
+pre_process()
+
 # print data_content
 
 print "Initialise feature_extraction function"
 # Initialise the feature_extraction func
 # vectorizer = TfidfVectorizer(min_df=1,max_df = 0.6, stop_words='english',preprocessor=Remove_Digits, max_features = 4000)
-vectorizer = CountVectorizer(ngram_range=(1,3) ,min_df=1,max_df = 0.6, stop_words='english',preprocessor=Remove_Digits, max_features = 4000, lowercase=True)
+vectorizer = CountVectorizer(ngram_range=(1,3) ,min_df=1,max_df = 0.6, stop_words='english',preprocessor=removeDigits, max_features = 4000, lowercase=True)
 
 
 # fit x train data
