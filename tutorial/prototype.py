@@ -28,6 +28,7 @@ def removeDigits(s):
 	return results
 
 def pre_process():
+	filtered_data = []
 	for temp in data_content:
 		temp=temp.lower()
 		temp = re.sub(r'^&quot;', '', temp, flags=re.MULTILINE)
@@ -37,15 +38,17 @@ def pre_process():
 			if i.find("http")==-1 and i.find("www.")==-1 and i.find("#")==-1 and i.find("@")==-1:
 				cache+=i+" "
 		temp = cache
+		filtered_data.append(temp)
 		cache=""
 		print temp
+	return filtered_data
 
 
 
 def load_data():
 	cols = ['ItemID','Sentiment','SentimentSource','SentimentText']
 	# df = pd.read_csv('5000_data.csv', skipinitialspace=True, usecols=fileds)
-	df = pd.read_csv('10000_data.csv', sep=',', header=None, names=cols);
+	df = pd.read_csv('5000_train.csv', sep=',', header=None, names=cols);
 	# print df.head()
 
 
@@ -93,18 +96,20 @@ def Accuracy(predict_label, test_label):
 
 data_content, data_label = load_data()
 
-pre_process()
+filtered_data = pre_process()
+
+
 
 # print data_content
 
 print "Initialise feature_extraction function"
 # Initialise the feature_extraction func
 # vectorizer = TfidfVectorizer(min_df=1,max_df = 0.6, stop_words='english',preprocessor=Remove_Digits, max_features = 4000)
-vectorizer = CountVectorizer(ngram_range=(1,3) ,min_df=1,max_df = 0.6, stop_words='english',preprocessor=removeDigits, max_features = 4000, lowercase=True)
+vectorizer = CountVectorizer(ngram_range=(1,5) ,min_df=1,max_df = 0.6, stop_words='english',preprocessor=removeDigits, max_features = 4000, lowercase=True)
 
 
 # fit x train data
-data_idf_set = vectorizer.fit_transform(data_content)
+data_idf_set = vectorizer.fit_transform(filtered_data)
 # idf = vectorizer._tfidf.idf_
 
 
