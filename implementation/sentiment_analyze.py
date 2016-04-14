@@ -38,7 +38,7 @@ data_content, data_lable = data_process.load_data('dataset/5000_train.csv')
 
 processed_data = data_process.pre_process(data_content)
 
-# processed_data = data_process.lemmatizer(processed_data)
+processed_data = data_process.lemmatizer(processed_data)
 
 vectorized_data = feature_extraction.tf_vectorizer(processed_data)
 

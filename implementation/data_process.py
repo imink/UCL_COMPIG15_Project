@@ -77,7 +77,7 @@ class DataProcess(object):
             words = ""
             for word in word_list:
                 words = words + " " + lmtzr.stem(word)
-                filtered_data.append(words)
+            filtered_data.append(words)
         return filtered_data
 
     # remove the digital number

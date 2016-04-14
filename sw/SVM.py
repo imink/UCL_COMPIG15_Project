@@ -173,47 +173,47 @@ if __name__ == "__main__":
 
 
 
-# """
-# Grid Search Section
-# Exhausted search of predefined parameter
-# """
-#
-# print('=' * 80)
-# print "Grid Seach For Best Estimator"
-#
-# parameters = {'C':(0.2,0.5,1,2,3,4,5,10),
-# 			  'gamma':(0.2,0.5,1,2,3,4,5,10)}
-#
-# C_range = 10. ** np.arange(-2, 9)
-# gamma_range = 10. ** np.arange(-5, 4)
-#
-# param_grid = dict(gamma=gamma_range, C=C_range)
-#
-#
-# gs_clf = GridSearchCV(svm.SVC(kernel='rbf'), param_grid=param_grid, n_jobs=-1)
-#
-# # Fit and train the train data
-# gs_clf = gs_clf.fit(a_train,b_train)
-# best_parameters, score, _ = max(gs_clf.grid_scores_, key=lambda x: x[1])
-#
-# # Print the score for each parameters
-# for param_name in sorted(parameters.keys()):
-# 	print("%s: %r" % (param_name, best_parameters[param_name]))
-#
-# print "Score is "
-# print score
-#
-#
-# print("The best classifier is: ", gs_clf.best_estimator_)
-#
-#
-# # plot the scores of the grid
-# # grid_scores_ contains parameter settings and scores
-# score_dict = gs_clf.grid_scores_
-#
-# # We extract just the scores
-# scores = [x[1] for x in score_dict]
-# scores = np.array(scores).reshape(len(C_range), len(gamma_range))
+"""
+Grid Search Section
+Exhausted search of predefined parameter
+"""
+
+print('=' * 80)
+print "Grid Seach For Best Estimator"
+
+parameters = {'C':(0.2,0.5,1,2,3,4,5,10),
+			  'gamma':(0.2,0.5,1,2,3,4,5,10)}
+
+C_range = 10. ** np.arange(-2, 9)
+gamma_range = 10. ** np.arange(-5, 4)
+
+param_grid = dict(gamma=gamma_range, C=C_range)
+
+
+gs_clf = GridSearchCV(svm.SVC(kernel='rbf'), param_grid=param_grid, n_jobs=-1)
+
+# Fit and train the train data
+gs_clf = gs_clf.fit(a_train,b_train)
+best_parameters, score, _ = max(gs_clf.grid_scores_, key=lambda x: x[1])
+
+# Print the score for each parameters
+for param_name in sorted(parameters.keys()):
+	print("%s: %r" % (param_name, best_parameters[param_name]))
+
+print "Score is "
+print score
+
+
+print("The best classifier is: ", gs_clf.best_estimator_)
+
+
+# plot the scores of the grid
+# grid_scores_ contains parameter settings and scores
+score_dict = gs_clf.grid_scores_
+
+# We extract just the scores
+scores = [x[1] for x in score_dict]
+scores = np.array(scores).reshape(len(C_range), len(gamma_range))
 
 
 
