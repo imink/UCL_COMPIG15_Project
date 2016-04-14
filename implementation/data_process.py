@@ -66,8 +66,6 @@ class DataProcess(object):
             filtered_data.append(words)
         return filtered_data
 
-
-
     def lemmatizer(self, data):
         filtered_data = []
         lmtzr = LancasterStemmer()
@@ -79,6 +77,7 @@ class DataProcess(object):
                 words = words + " " + lmtzr.stem(word)
             filtered_data.append(words)
         return filtered_data
+
 
     # remove the digital number
     def removeDigits(self, string):
