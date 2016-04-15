@@ -12,7 +12,7 @@ from matplotlib import style
 from nltk.stem.lancaster import LancasterStemmer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import tree
-from sklearn.linear_model.LogisticRegression import LogisticRegression
+from sklearn.linear_model import LogisticRegression
 import os
 import re
 import random
@@ -29,7 +29,7 @@ class EvalLogReg(object):
     """docstring for EvalTree"""
     b_preict = []
     def __init__(self):
-        super(EvalSVM, self).__init__()
+        super(EvalLogReg, self).__init__()
 
 
   
@@ -37,7 +37,7 @@ class EvalLogReg(object):
     def init_classifier(self):
         # clf = svm.SVC(kernel = 'rbf', gamma=self.gamma_value, C=self.c_value)
         # print "SVM configuration... \n\n", clf
-        clf = linear_model.LogisticRegression()
+        clf = LogisticRegression()
         return clf
 
 

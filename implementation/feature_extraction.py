@@ -27,12 +27,6 @@ class FeatureExtraction(object):
         super(FeatureExtraction, self).__init__()
 
 
-    # remove the digital number
-    # def removeDigits(self, string):
-    #     results = ''.join(i for i in string if not i.isdigit())
-    #     return results
-
-
     def tfidf_vectorizer(self, processed_data):
         # print data_content
 

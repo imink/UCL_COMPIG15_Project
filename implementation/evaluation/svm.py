@@ -33,11 +33,10 @@ class EvalSVM(object):
         self.c_value = c
   
 
-    def init_svm(self):
-        # clf = svm.SVC(kernel = 'rbf', gamma=self.gamma_value, C=self.c_value)
+    def init_classifier(self):
+        clf = svm.SVC(kernel = 'rbf', gamma=self.gamma_value, C=self.c_value)
         # print "SVM configuration... \n\n", clf
         # clf = MultinomialNB()
-        clf = tree.DecisionTreeClassifier()
         return clf
 
 

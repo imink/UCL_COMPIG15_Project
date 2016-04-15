@@ -28,7 +28,7 @@ class EvalNB(object):
     """docstring for EvalNB"""
     b_preict = []
     def __init__(self, alpha):
-        super(EvalSVM, self).__init__()
+        super(EvalNB, self).__init__()
         self.alpha_value = alpha
 
   

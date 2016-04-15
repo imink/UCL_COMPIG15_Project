@@ -24,13 +24,19 @@ import re
 from data_process import DataProcess
 from feature_extraction import FeatureExtraction
 from evaluation.svm import EvalSVM
+from evaluation.knn import EvalKnn
+from evaluation.tree import EvalTree
+from evaluation.nb import EvalNB
+from evaluation.logReg import EvalLogReg
+
+
 
 # Init the object
 data_process = DataProcess()
 feature_extraction = FeatureExtraction()
 
 
-data_content, data_lable = data_process.load_data('dataset/5000_new_train.csv')
+data_content, data_lable = data_process.load_data('dataset/5000_seq.csv')
 
 
 processed_data = data_process.pre_process(data_content)
@@ -46,12 +52,20 @@ vectorized_data = feature_extraction.tfidf_vectorizer(processed_data)
 a_train, a_test, b_train, b_test = train_test_split(vectorized_data, data_lable, test_size=0.33, random_state=42)
 
 # init svm
-svm = EvalSVM(0.1, 10) 
-clf = svm.init_classifier()
-clf = svm.fit_train_data(clf, a_train, b_train)
+# classifier = EvalSVM(1, 100) 
+# classifier = EvalKnn()
+# classifier = EvalTree()
+# classifier = EvalNB(0.1)
 
-svm.eval_output(clf, a_train, b_train, a_test, b_test)
-svm.accuracy(b_test)
+classifier = EvalLogReg()
+
+
+clf = classifier.init_classifier()
+
+clf = classifier.fit_train_data(clf, a_train, b_train)
+
+classifier.eval_output(clf, a_train, b_train, a_test, b_test)
+classifier.accuracy(b_test)
 
 # svm.parameter_turning(a_train, b_train)
 

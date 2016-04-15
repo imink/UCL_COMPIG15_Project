@@ -30,7 +30,7 @@ class EvalKnn(object):
     """docstring for EvalTree"""
     b_preict = []
     def __init__(self):
-        super(EvalSVM, self).__init__()
+        super(EvalKnn, self).__init__()
 
 
   
@@ -38,7 +38,7 @@ class EvalKnn(object):
     def init_classifier(self):
         # clf = svm.SVC(kernel = 'rbf', gamma=self.gamma_value, C=self.c_value)
         # print "SVM configuration... \n\n", clf
-        clf = linear_model.LogisticRegression()
+        clf = KNeighborsClassifier(n_neighbors=3)
         return clf
 
 
