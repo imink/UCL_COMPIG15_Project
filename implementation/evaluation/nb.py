@@ -24,20 +24,19 @@ import re
 style.use('ggplot')
 
 
-class EvalSVM(object):
-    """docstring for EvalSVM"""
+class EvalNB(object):
+    """docstring for EvalNB"""
     b_preict = []
-    def __init__(self, gamma, c):
+    def __init__(self, alpha):
         super(EvalSVM, self).__init__()
-        self.gamma_value = gamma
-        self.c_value = c
+        self.alpha_value = alpha
+
   
 
-    def init_svm(self):
+    def init_classifier(self):
         # clf = svm.SVC(kernel = 'rbf', gamma=self.gamma_value, C=self.c_value)
         # print "SVM configuration... \n\n", clf
-        # clf = MultinomialNB()
-        clf = tree.DecisionTreeClassifier()
+        clf = MultinomialNB(alpha=self.alpha_value, class_prior=None, fit_prior=True)
         return clf
 
 
@@ -94,64 +93,6 @@ class EvalSVM(object):
 
         accuracy = float(pos_count + neg_count) / sample_sum
         print accuracy
-
-
-    """
-    Grid Search Section
-    Exhausted search of predefined parameter
-    """
-    def parameter_turning(self, a_train, b_train):        
-
-
-        print('=' * 80)
-        print "Grid Seach For Best Estimator"
-
-        parameters = {'C':(0.2,0.5,1,2,3,4,5,10),
-                      'gamma':(0.2,0.5,1,2,3,4,5,10)}
-
-        C_range = 10. ** np.arange(-2, 9)
-        gamma_range = 10. ** np.arange(-5, 4)
-
-        param_grid = dict(gamma=gamma_range, C=C_range)
-
-
-        gs_clf = GridSearchCV(svm.SVC(kernel='rbf'), param_grid=param_grid, n_jobs=-1)
-
-        # Fit and train the train data
-        gs_clf = gs_clf.fit(a_train,b_train)
-        best_parameters, score, _ = max(gs_clf.grid_scores_, key=lambda x: x[1])
-
-        # Print the score for each parameters
-        for param_name in sorted(parameters.keys()):
-            print("%s: %r" % (param_name, best_parameters[param_name]))
-
-        print "Score is "
-        print score
-
-
-        print("The best classifier is: ", gs_clf.best_estimator_)
-
-
-        # plot the scores of the grid
-        # grid_scores_ contains parameter settings and scores
-        score_dict = gs_clf.grid_scores_
-
-        # We extract just the scores
-        scores = [x[1] for x in score_dict]
-        scores = np.array(scores).reshape(len(C_range), len(gamma_range))
-
-
-        # Make a nice figure
-        plt.figure(figsize=(8, 6))
-        plt.subplots_adjust(left=0.15, right=0.95, bottom=0.15, top=0.95)
-        plt.imshow(scores, interpolation='nearest', cmap=plt.cm.spectral)
-        plt.xlabel('gamma')
-        plt.ylabel('C')
-        plt.colorbar()
-        plt.xticks(np.arange(len(gamma_range)), gamma_range, rotation=45)
-        plt.yticks(np.arange(len(C_range)), C_range)
-        plt.show()
-
 
 
 

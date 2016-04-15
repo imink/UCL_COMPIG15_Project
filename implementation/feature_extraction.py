@@ -33,18 +33,24 @@ class FeatureExtraction(object):
     #     return results
 
 
-    def tdidf_vectorizer(self, processed_data):
+    def tfidf_vectorizer(self, processed_data):
         # print data_content
 
         print "Initialise TFIDF feature_extraction function"
         print '=' * 50
         # Initialise the feature_extraction func
-        vectorizer = TfidfVectorizer(min_df=1,max_df = 0.6, stop_words='english', max_features = 4000)
+        vectorizer = TfidfVectorizer(min_df=1,max_df = 0.6, stop_words='english')
         # vectorizer = CountVectorizer(ngram_range=(1,5) ,min_df=1,max_df = 0.6, stop_words='english',preprocessor=removeDigits, max_features = 4000, lowercase=True)
 
         # fit x train data
         vectorized_data = vectorizer.fit_transform(processed_data)
-        #pprint (vectorizer.get_feature_names()[:100])
+        # pprint (vectorizer.get_feature_names()[:100])
+
+        feature_array = np.array(vectorizer.get_feature_names())
+        tfidf_sorting = np.argsort(vectorized_data.toarray()).flatten()[::-1]
+        n = 100
+        top_n = feature_array[tfidf_sorting][:n]
+        pprint (top_n) 
         return vectorized_data
 
 
@@ -55,7 +61,7 @@ class FeatureExtraction(object):
         print "Initialise TF feature_extraction function"
         print '=' * 50
         # Initialise the feature_extraction func
-        vectorizer = CountVectorizer(ngram_range=(1,5) ,min_df=1,max_df = 0.6, stop_words='english', max_features = 4000)
+        vectorizer = CountVectorizer(ngram_range=(1,5) ,min_df=1,max_df = 0.6, stop_words='english')
 
         # fit x train data
         vectorized_data = vectorizer.fit_transform(processed_data)

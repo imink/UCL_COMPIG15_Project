@@ -25,35 +25,33 @@ from data_process import DataProcess
 from feature_extraction import FeatureExtraction
 from evaluation.svm import EvalSVM
 
-
-def removeDigits(s):
-	results = ''.join(i for i in s if not i.isdigit())
-	return results
-
+# Init the object
 data_process = DataProcess()
 feature_extraction = FeatureExtraction()
 
 
 data_content, data_lable = data_process.load_data('dataset/5000_new_train.csv')
 
-processed_data = data_process.lemmatizer(data_content)
 
-processed_data = data_process.pre_process(processed_data)
+processed_data = data_process.pre_process(data_content)
+processed_data = data_process.lemmatizer(processed_data)
 
-vectorized_data = feature_extraction.tf_vectorizer(processed_data)
+pprint (processed_data)
+
+vectorized_data = feature_extraction.tfidf_vectorizer(processed_data)
 
 # vectorizer = TfidfVectorizer(min_df=1,max_df = 0.6, stop_words='english', preprocessor=removeDigits, max_features = 4000)
 # vectorized_data = vectorizer.fit_transform(processed_data)
 
+a_train, a_test, b_train, b_test = train_test_split(vectorized_data, data_lable, test_size=0.33, random_state=42)
 
-
-a_train, a_test, b_train, b_test = train_test_split(vectorized_data, data_lable, test_size=0.33, random_state=40)
-
-svm = EvalSVM(0.1, 10)
-clf = svm.init_svm()
+# init svm
+svm = EvalSVM(0.1, 10) 
+clf = svm.init_classifier()
 clf = svm.fit_train_data(clf, a_train, b_train)
 
 svm.eval_output(clf, a_train, b_train, a_test, b_test)
 svm.accuracy(b_test)
 
+# svm.parameter_turning(a_train, b_train)
 
