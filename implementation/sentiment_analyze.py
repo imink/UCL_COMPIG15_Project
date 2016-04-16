@@ -46,18 +46,20 @@ pprint (processed_data)
 
 vectorized_data = feature_extraction.tfidf_vectorizer(processed_data)
 
+vectorized_data = feature_extraction.fp_vectorizer(vectorized_data)
+
 # vectorizer = TfidfVectorizer(min_df=1,max_df = 0.6, stop_words='english', preprocessor=removeDigits, max_features = 4000)
 # vectorized_data = vectorizer.fit_transform(processed_data)
 
 a_train, a_test, b_train, b_test = train_test_split(vectorized_data, data_lable, test_size=0.33, random_state=42)
 
-# init svm
-# classifier = EvalSVM(1, 100) 
+# init classifier
+classifier = EvalSVM(1, 100) 
 # classifier = EvalKnn()
 # classifier = EvalTree()
 # classifier = EvalNB(0.1)
 
-classifier = EvalLogReg()
+# classifier = EvalLogReg()
 
 
 clf = classifier.init_classifier()
@@ -67,5 +69,5 @@ clf = classifier.fit_train_data(clf, a_train, b_train)
 classifier.eval_output(clf, a_train, b_train, a_test, b_test)
 classifier.accuracy(b_test)
 
-# svm.parameter_turning(a_train, b_train)
+# classifier.parameter_turning(a_train, b_train)
 

@@ -10,6 +10,8 @@ from sklearn.grid_search import GridSearchCV
 from sklearn.feature_extraction.text import CountVectorizer
 from matplotlib import style
 from nltk.stem.lancaster import LancasterStemmer
+from sklearn.preprocessing import Binarizer
+
 
 import os
 import re

@@ -13,6 +13,7 @@ from nltk.stem.lancaster import LancasterStemmer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import tree
 from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import SGDClassifier
 import os
 import re
 import random
@@ -37,7 +38,8 @@ class EvalLogReg(object):
     def init_classifier(self):
         # clf = svm.SVC(kernel = 'rbf', gamma=self.gamma_value, C=self.c_value)
         # print "SVM configuration... \n\n", clf
-        clf = LogisticRegression()
+        # clf = LogisticRegression()
+        clf = SGDClassifier(loss="hinge", penalty="l2")
         return clf
 
 
