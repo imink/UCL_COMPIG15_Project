@@ -31,7 +31,7 @@ from evaluation.logReg import EvalLogReg
 
 
 
-# Init the object
+# Init the data process and feature extraction object
 data_process = DataProcess()
 feature_extraction = FeatureExtraction()
 
@@ -39,14 +39,16 @@ feature_extraction = FeatureExtraction()
 data_content, data_lable = data_process.load_data('dataset/5000_seq.csv')
 data_process.extract_n_p_total(data_lable)
 
+# preprocess data
 processed_data = data_process.pre_process(data_content)
 processed_data = data_process.lemmatizer(processed_data)
 
-pprint (processed_data)
+# pprint (processed_data)
 
+# vectorizer data
 vectorized_data = feature_extraction.tfidf_vectorizer(processed_data)
 
-vectorized_data = feature_extraction.fp_vectorizer(vectorized_data)
+# vectorized_data = feature_extraction.fp_vectorizer(vectorized_data)
 
 # vectorizer = TfidfVectorizer(min_df=1,max_df = 0.6, stop_words='english', preprocessor=removeDigits, max_features = 4000)
 # vectorized_data = vectorizer.fit_transform(processed_data)
@@ -60,14 +62,14 @@ classifier = EvalSVM(1, 100)
 # classifier = EvalNB(0.1)
 
 # classifier = EvalLogReg()
-
-
 clf = classifier.init_classifier()
 
+# train data
 clf = classifier.fit_train_data(clf, a_train, b_train)
 
 classifier.eval_output(clf, a_train, b_train, a_test, b_test)
 classifier.accuracy(b_test)
 
+# parameter turning 
 # classifier.parameter_turning(a_train, b_train)
 
