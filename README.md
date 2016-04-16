@@ -10,7 +10,7 @@ Sentiment analysis aims to judge whether the emotional tend expressed in a text 
 
 Team Member
 -------------
-- Shut Wang, MSc Web Science and Big Data
+- Shuo Wang, MSc Web Science and Big Data
 - Yue Wang, MSc NCS
 - Xizhe Jiang, MSc NCS
 
