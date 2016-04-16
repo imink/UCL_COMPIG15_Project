@@ -37,7 +37,7 @@ feature_extraction = FeatureExtraction()
 
 
 data_content, data_lable = data_process.load_data('dataset/5000_seq.csv')
-
+data_process.extract_n_p_total(data_lable)
 
 processed_data = data_process.pre_process(data_content)
 processed_data = data_process.lemmatizer(processed_data)

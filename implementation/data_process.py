@@ -41,6 +41,17 @@ class DataProcess(object):
         # return the data content and their label
         return data_content, data_label
 
+    def extract_n_p_total(self, data_label):
+        n=p=0
+        for i in range(len(data_label)):
+            if data_label[i] == "0":
+                n=n+1
+            else:
+                p=p+1
+
+
+        print "possitive tweet: ", p, "of ",len(data_label),"\n"
+        print "negative  tweet: ", n, "of ",len(data_label),"\n"
 
     def pre_process(self, data):
         print "Pre-process the data"
